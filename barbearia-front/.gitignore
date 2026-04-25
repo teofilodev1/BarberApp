@@ -1,0 +1,50 @@
+# --- DEPENDÊNCIAS (Node.js & React) ---
+# Nunca subir as bibliotecas. Ocupam muito espaço e são instaladas via npm/yarn.
+node_modules/
+.pnp
+.pnp.js
+
+# --- SEGURANÇA E SEGREDOS (CRÍTICO) ---
+# Arquivos de variáveis de ambiente onde ficam senhas e chaves de API.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+
+# --- BUILDS E SAÍDA DE CÓDIGO ---
+# Pastas geradas pelo processo de build (Vite, Webpack, etc)
+dist/
+build/
+.next/
+out/
+
+# --- LOGS E DEPURAÇÃO ---
+# Registros de erros que o Node e o NPM geram
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+pnpm-debug.log*
+
+# --- SISTEMA E IDEs ---
+# Configurações pessoais do seu computador ou editor de texto
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# --- BANCO DE DADOS LOCAL ---
+# Se usar SQLite ou dumps de banco para testes
+*.db
+*.sqlite
+dump.rdb
+
+# --- TESTES ---
+# Relatórios de cobertura de testes
+coverage/
+.nyc_output/
