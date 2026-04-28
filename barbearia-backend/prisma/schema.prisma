@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  nome        String?
+  telefone    String        @unique
+  senha       String
+  role        String        @default("cliente")
+  createdAt   DateTime      @default(now())
+  agendamentos Agendamento[]
+
+  @@map("users")
+}
+
+model Servico {
+  id           String        @id @default(uuid())
+  name         String
+  description  String?
+  price        Decimal       @db.Decimal(10, 2)
+  durationMin  Int
+  category     String?
+  imageUrl     String?
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  agendamentos Agendamento[]
+
+  @@map("servicos")
+}
+
+model Agendamento {
+  id              Int        @id @default(autoincrement())
+  horario         DateTime
+  forma_pagamento String?
+  status          Status     @default(PENDENTE)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt        // ← adicionado
+
+  userId          Int
+  user            User       @relation(fields: [userId], references: [id])
+
+  servicoId       String
+  servico         Servico    @relation(fields: [servicoId], references: [id])
+
+  historico       Historico?                   // ← relação adicionada
+
+  @@map("agendamentos")
+}
+
+model Historico {
+  id             Int         @id @default(autoincrement())
+  descricao      String
+  realizadoEm   DateTime    @default(now())
+
+  agendamentoId  Int         @unique           // ← vínculo com Agendamento
+  agendamento    Agendamento @relation(fields: [agendamentoId], references: [id])
+
+  @@map("historico")
+}
+
+enum Status {
+  PENDENTE
+  CONCLUIDO
+  CANCELADO
+}

@@ -7,7 +7,7 @@ function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault();
       try {
-          fetch('http://localhost:3000/api/auth/login', {
+          fetch('http://localhost:3000/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

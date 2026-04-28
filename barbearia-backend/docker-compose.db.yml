@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:17
+    restart: always # Bom para garantir que o banco suba com o sistema
+    env_file:
+      - .env
+    environment:
+      # Usar as variáveis do .env
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432" # Mapeia a porta escolhida para a padrão do Postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
