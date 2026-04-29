@@ -27,7 +27,6 @@ export async function login(req, res, next) {
       process.env.JWT_SECRET,
       { expiresIn: '3h' }
     );
-    console.log('JWT_SECRET no momento do sign:', process.env.JWT_SECRET);
     res.json({ token });
 
 } catch (error) {
