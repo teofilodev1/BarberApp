@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import jwt    from 'jsonwebtoken';
 import prisma from '../../lib/prisma.js';
@@ -14,8 +15,6 @@ export async function login(req, res, next) {
     if (!usuario) {
       return res.status(401).json({ erro: 'Email ou senha inválidos' });
     }
-
-    // ─── Compara senha com hash do banco ──────────────────────
     const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
     if (!senhaValida) {
@@ -26,13 +25,13 @@ export async function login(req, res, next) {
     const token = jwt.sign(
       { id: usuario.id, role: usuario.role },
       process.env.JWT_SECRET,
-      { expiresIn: '8h' }
+      { expiresIn: '3h' }
     );
-
+    console.log('JWT_SECRET no momento do sign:', process.env.JWT_SECRET);
     res.json({ token });
 
 } catch (error) {
-  console.error('ERRO LOGIN:', error); // ← adiciona isso
-  next(new Error('Erro ao realizar login'));
-}
+    console.error('ERRO LOGIN:', error);
+    next(error); 
+  }
 }

@@ -1,23 +1,30 @@
 import { useState } from 'react';
+import { showAlert } from '../../components/ui/alert'
 import './Login.css';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
       try {
-          fetch('http://localhost:3000/api/login', {
+          const res = await fetch('http://localhost:3000/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ email, senha })
         });
-      } catch (error) {
-        console.error('Erro ao fazer login:', error);
-      }
-    };
+        const data = await res.json()
+    if (!res.ok) {
+      showAlert(data.erro || "Erro ao realizar login", "error"); 
+      return;
+    }
+    showAlert("Login realizado com sucesso!", "success");
+  } catch {
+    showAlert("Erro de conexão", "error");
+  }
+};
 
   return (
     <div className="min-h-screen flex flex-col">

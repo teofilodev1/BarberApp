@@ -8,27 +8,32 @@ function CadastroPage() {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
-  const handleCadastro = (e) => {
-    e.preventDefault();
-    try {
-      const res = fetch("http://localhost:3000/api/cadastro", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, senha, confirmarSenha, nome, telefone }),
-      });
-      const data = res.json;
-        if (!res.ok) {
-          showAlert(data.error || "Erro ao cadastrar", "error");
-              return;
-        }
-          showAlert("Usuário cadastrado com sucesso!", "success");
-          
-        } catch {
-          showAlert("Erro de conexão", "error");
+  const handleCadastro = async (e) => {  // ← async
+  e.preventDefault();
+  if (senha !== confirmarSenha) {
+    showAlert("As senhas não coincidem", "warning");
+    return;
+  }
+  try {
+    const res = await fetch("http://localhost:3000/api/cadastro", {  
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, senha, nome, telefone }),
+    });
+
+    const data = await res.json(); 
+
+    if (!res.ok) {
+      showAlert(data.erro || "Erro ao cadastrar", "error"); 
+      return;
     }
-  };
+
+    showAlert("Usuário cadastrado com sucesso!", "success");
+
+  } catch {
+    showAlert("Erro de conexão", "error");
+  }
+};
 
   return (
     <div className="min-h-screen flex flex-col">

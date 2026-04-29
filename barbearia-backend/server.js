@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express        from 'express';
 import cors           from 'cors';
 import helmet         from 'helmet';
@@ -15,11 +16,8 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-app.use(express.json());
-
-// ─── Autenticação global ──────────────────────────────────────
-app.use(authMiddleware); // ← ANTES das rotas
-
+app.use(express.json());         // parseia application/json
+app.use(express.urlencoded({ extended: true })); // parseia form data
 // ─── Rotas ───────────────────────────────────────────────────
 app.use('/api', userRouter);
 
