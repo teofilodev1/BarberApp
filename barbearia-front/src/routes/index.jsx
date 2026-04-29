@@ -5,7 +5,6 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastro" element={<CadastroPage />} />
       </Routes>
