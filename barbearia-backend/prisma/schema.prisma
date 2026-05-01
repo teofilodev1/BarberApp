@@ -8,13 +8,13 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  email       String        @unique
-  nome        String?
-  telefone    String        @unique
-  senha       String
-  role        String        @default("cliente")
-  createdAt   DateTime      @default(now())
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  nome         String?
+  telefone     String        @unique
+  senha        String
+  role         String        @default("cliente")
+  createdAt    DateTime      @default(now())
   agendamentos Agendamento[]
 
   @@map("users")
@@ -42,7 +42,7 @@ model Agendamento {
   forma_pagamento String?
   status          Status     @default(PENDENTE)
   createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt        // ← adicionado
+  updatedAt       DateTime   @updatedAt
 
   userId          Int
   user            User       @relation(fields: [userId], references: [id])
@@ -50,20 +50,43 @@ model Agendamento {
   servicoId       String
   servico         Servico    @relation(fields: [servicoId], references: [id])
 
-  historico       Historico?                   // ← relação adicionada
+  barbeiroId      Int?
+  barbeiro        Barbeiro?  @relation("AgendamentoBarbeiro", fields: [barbeiroId], references: [id])
+
+  historico       Historico?
 
   @@map("agendamentos")
 }
 
 model Historico {
-  id             Int         @id @default(autoincrement())
-  descricao      String
-  realizadoEm   DateTime    @default(now())
+  id            Int         @id @default(autoincrement())
+  descricao     String
+  realizadoEm  DateTime    @default(now())
 
-  agendamentoId  Int         @unique           // ← vínculo com Agendamento
-  agendamento    Agendamento @relation(fields: [agendamentoId], references: [id])
+  agendamentoId Int         @unique
+  agendamento   Agendamento @relation(fields: [agendamentoId], references: [id])
 
   @@map("historico")
+}
+
+model Barbeiro {
+  id            Int           @id @default(autoincrement())
+  nome          String
+  especialidade String
+  experiencia   String
+  agendamentos  Agendamento[] @relation("AgendamentoBarbeiro")
+
+  @@map("barbeiros")
+}
+
+model Horarios {
+  id         Int     @id @default(autoincrement())
+  diaSemana  String
+  abertura   String
+  fechamento String
+  ativo      Boolean @default(true)
+
+  @@map("horarios")
 }
 
 enum Status {

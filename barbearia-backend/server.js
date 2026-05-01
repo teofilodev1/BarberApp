@@ -4,6 +4,7 @@ import cors           from 'cors';
 import helmet         from 'helmet';
 import authMiddleware from './src/middleware/auth.middleware.js';
 import userRouter     from './src/routes/user.routes.js';
+import serviceRouter from './src/routes/services.routes.js'
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.use(express.json());         // parseia application/json
 app.use(express.urlencoded({ extended: true })); // parseia form data
 // ─── Rotas ───────────────────────────────────────────────────
 app.use('/api', userRouter);
+app.use('/api', serviceRouter);
 
 // ─── Error handler ────────────────────────────────────────────
 app.use((err, req, res, next) => {

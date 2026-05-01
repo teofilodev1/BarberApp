@@ -26,7 +26,6 @@ export async function cadastro(req, res, next) {
     const usuario = await prisma.user.create({
       data: { nome, email, telefone, senha: senhaHash },
       select: { id: true, nome: true, email: true, telefone: true, criadoEm: true }
-
     });
 
     return res.status(201).json({ usuario });
