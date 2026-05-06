@@ -1,0 +1,632 @@
+/* ════════════════════════════════════════════════
+   admin.css — Barbearia Premium | Painel Admin
+   ════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ── Variáveis (mesma paleta da home) ───────────── */
+.admin {
+  --roxo:         #7c3aed;
+  --roxo-claro:   #a855f7;
+  --dourado:      #d4a843;
+  --dourado-dim:  rgba(212, 168, 67, 0.12);
+  --fundo:        #0e0b16;
+  --fundo-alt:    #12101c;
+  --card:         #1a1628;
+  --card-2:       #221d34;
+  --texto:        #f1eeff;
+  --texto-suave:  rgba(241, 238, 255, 0.45);
+  --texto-fraco:  rgba(241, 238, 255, 0.25);
+  --borda:        rgba(124, 58, 237, 0.18);
+  --borda-ouro:   rgba(212, 168, 67, 0.25);
+  --erro:         #f87171;
+  --erro-dim:     rgba(248, 113, 113, 0.12);
+  --fonte-titulo: 'Playfair Display', serif;
+  --fonte-corpo:  'Outfit', sans-serif;
+  --sidebar-w:    240px;
+  --raio:         12px;
+  --raio-lg:      18px;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-corpo);
+}
+
+/* ── Sidebar ─────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--card);
+  border-right: 1px solid var(--borda);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.sidebar-logo {
+  padding: 1.75rem 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--borda);
+}
+
+.sidebar-logo-text {
+  font-family: var(--fonte-titulo);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--texto);
+  letter-spacing: -0.5px;
+}
+
+.sidebar-logo-text em {
+  font-style: italic;
+  color: var(--dourado);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--raio);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--texto-suave);
+  font-family: var(--fonte-corpo);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+}
+
+.sidebar-item:hover {
+  background: var(--card-2);
+  color: var(--texto);
+  border-color: var(--borda);
+}
+
+.sidebar-item-ativo {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: rgba(124, 58, 237, 0.35);
+  color: var(--texto);
+  font-weight: 500;
+}
+
+.sidebar-item-ativo .sidebar-icone {
+  color: var(--roxo-claro);
+}
+
+.sidebar-icone {
+  display: flex;
+  align-items: center;
+  color: var(--texto-fraco);
+  flex-shrink: 0;
+  transition: color 0.18s;
+}
+
+.sidebar-footer {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--borda);
+  font-size: 11px;
+  color: var(--texto-fraco);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Main ────────────────────────────────────────── */
+.admin-main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.admin-topbar {
+  padding: 1.5rem 2.5rem;
+  border-bottom: 1px solid var(--borda);
+  background: var(--fundo-alt);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.admin-topbar-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--texto);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.admin-content {
+  padding: 2.5rem;
+  flex: 1;
+}
+
+/* ── Seção Admin ─────────────────────────────────── */
+.secao-admin {
+  animation: subir 0.4s ease both;
+}
+
+@keyframes subir {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.secao-admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.secao-admin-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--texto);
+  margin: 0 0 4px;
+}
+
+.secao-admin-sub {
+  font-size: 13px;
+  color: var(--texto-suave);
+  margin: 0;
+}
+
+/* ── Botão Novo ──────────────────────────────────── */
+.btn-novo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--dourado);
+  color: #0e0b16;
+  font-family: var(--fonte-corpo);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-novo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 168, 67, 0.3);
+}
+
+/* ── Tabela ──────────────────────────────────────── */
+.tabela-wrapper {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela thead {
+  background: var(--card-2);
+  border-bottom: 1px solid var(--borda);
+}
+
+.tabela th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--texto-fraco);
+}
+
+.tabela td {
+  padding: 1rem 1.25rem;
+  font-size: 14px;
+  color: var(--texto-suave);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+  vertical-align: middle;
+}
+
+.tabela tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela tbody tr {
+  transition: background 0.15s;
+}
+
+.tabela tbody tr:hover {
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.td-nome {
+  color: var(--texto) !important;
+  font-weight: 500;
+}
+
+.td-desc {
+  color: var(--texto-suave) !important;
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge-dourado {
+  display: inline-block;
+  background: var(--dourado-dim);
+  color: var(--dourado);
+  border: 1px solid var(--borda-ouro);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.badge-hora {
+  display: inline-block;
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--roxo-claro);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Ações ───────────────────────────────────────── */
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.acoes-col {
+  flex-direction: column;
+}
+
+.btn-acao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-editar {
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--roxo-claro);
+  border-color: var(--borda);
+}
+
+.btn-editar:hover {
+  background: rgba(124, 58, 237, 0.25);
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.btn-deletar {
+  background: var(--erro-dim);
+  color: var(--erro);
+  border-color: rgba(248, 113, 113, 0.2);
+}
+
+.btn-deletar:hover {
+  background: rgba(248, 113, 113, 0.22);
+}
+
+/* ── Cards Barbeiros ─────────────────────────────── */
+.barbeiros-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.barbeiro-admin-card {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: subir 0.4s ease both;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.barbeiro-admin-card:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  transform: translateY(-2px);
+}
+
+.barbeiro-admin-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--card-2);
+  border: 2px solid var(--borda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.barbeiro-admin-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.barbeiro-admin-avatar span {
+  font-family: var(--fonte-titulo);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--roxo-claro);
+}
+
+.barbeiro-admin-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.barbeiro-admin-info strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.barbeiro-admin-info span {
+  font-size: 13px;
+  color: var(--roxo-claro);
+}
+
+.barbeiro-admin-info small {
+  font-size: 12px;
+  color: var(--texto-fraco);
+}
+
+/* ── Modal ───────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 11, 22, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  background: var(--card);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: var(--raio-lg);
+  width: 100%;
+  max-width: 480px;
+  margin: 1rem;
+  animation: modalEntrar 0.25s ease;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes modalEntrar {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.75rem 1.25rem;
+  border-bottom: 1px solid var(--borda);
+}
+
+.modal-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--texto);
+  margin: 0;
+}
+
+.modal-fechar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--borda);
+  background: transparent;
+  color: var(--texto-suave);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.modal-fechar:hover {
+  background: var(--card-2);
+  color: var(--texto);
+}
+
+.modal-body {
+  padding: 1.5rem 1.75rem;
+}
+
+/* ── Formulário ──────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--texto-fraco);
+}
+
+.campo input,
+.campo textarea {
+  background: var(--card-2);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: var(--fonte-corpo);
+  font-size: 14px;
+  color: var(--texto);
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+  color: var(--texto-fraco);
+}
+
+.campo input:focus,
+.campo textarea:focus {
+  border-color: rgba(124, 58, 237, 0.5);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.campos-linha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--borda);
+  margin-top: 0.25rem;
+}
+
+.btn-cancelar {
+  font-family: var(--fonte-corpo);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--borda);
+  background: transparent;
+  color: var(--texto-suave);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-cancelar:hover {
+  background: var(--card-2);
+  color: var(--texto);
+}
+
+.btn-salvar {
+  font-family: var(--fonte-corpo);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 24px;
+  border-radius: 8px;
+  border: none;
+  background: var(--dourado);
+  color: #0e0b16;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-salvar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(212, 168, 67, 0.3);
+}
+
+/* ── Responsivo ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .admin {
+    flex-direction: column;
+  }
+
+  .admin-main {
+    margin-left: 0;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    padding: 0.5rem;
+    overflow-x: auto;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+  .admin-content {
+    padding: 1.5rem;
+  }
+
+  .campos-linha {
+    grid-template-columns: 1fr;
+  }
+
+  .barbeiros-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .tabela th:nth-child(2),
+  .tabela td:nth-child(2) {
+    display: none;
+  }
+}

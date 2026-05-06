@@ -7,6 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Status {
+  PENDENTE
+  CONCLUIDO
+  CANCELADO
+}
+
+enum FormaPagamento {
+  PIX
+  CARTAO
+  DINHEIRO
+}
+
 model User {
   id           Int           @id @default(autoincrement())
   email        String        @unique
@@ -37,21 +49,21 @@ model Servico {
 }
 
 model Agendamento {
-  id              Int        @id @default(autoincrement())
+  id              Int             @id @default(autoincrement())
   horario         DateTime
-  forma_pagamento String?
-  status          Status     @default(PENDENTE)
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
+  forma_pagamento FormaPagamento?
+  status          Status          @default(PENDENTE)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 
   userId          Int
-  user            User       @relation(fields: [userId], references: [id])
+  user            User            @relation(fields: [userId], references: [id])
 
   servicoId       String
-  servico         Servico    @relation(fields: [servicoId], references: [id])
+  servico         Servico         @relation(fields: [servicoId], references: [id])
 
   barbeiroId      Int?
-  barbeiro        Barbeiro?  @relation("AgendamentoBarbeiro", fields: [barbeiroId], references: [id])
+  barbeiro        Barbeiro?       @relation("AgendamentoBarbeiro", fields: [barbeiroId], references: [id])
 
   historico       Historico?
 
@@ -60,8 +72,8 @@ model Agendamento {
 
 model Historico {
   id            Int         @id @default(autoincrement())
-  descricao     String
-  realizadoEm  DateTime    @default(now())
+  descricao     String?
+  realizadoEm   DateTime    @default(now())
 
   agendamentoId Int         @unique
   agendamento   Agendamento @relation(fields: [agendamentoId], references: [id])
@@ -72,8 +84,14 @@ model Historico {
 model Barbeiro {
   id            Int           @id @default(autoincrement())
   nome          String
+  email         String        @unique 
+  senha         String                 
   especialidade String
-  experiencia   String
+  experiencia   String?
+  imageUrl      String?
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   agendamentos  Agendamento[] @relation("AgendamentoBarbeiro")
 
   @@map("barbeiros")
@@ -82,15 +100,9 @@ model Barbeiro {
 model Horarios {
   id         Int     @id @default(autoincrement())
   diaSemana  String
-  abertura   String
-  fechamento String
+  abertura   Int
+  fechamento Int
   ativo      Boolean @default(true)
 
   @@map("horarios")
-}
-
-enum Status {
-  PENDENTE
-  CONCLUIDO
-  CANCELADO
 }

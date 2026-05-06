@@ -4,7 +4,8 @@ import cors           from 'cors';
 import helmet         from 'helmet';
 import authMiddleware from './src/middleware/auth.middleware.js';
 import userRouter     from './src/routes/user.routes.js';
-import serviceRouter from './src/routes/services.routes.js'
+import serviceRouter  from './src/routes/services.routes.js';
+import { conectarBanco } from './src/lib/prisma.js'; // 👈 importado
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -17,8 +18,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-app.use(express.json());         // parseia application/json
-app.use(express.urlencoded({ extended: true })); // parseia form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // ─── Rotas ───────────────────────────────────────────────────
 app.use('/api', userRouter);
 app.use('/api', serviceRouter);
@@ -30,6 +32,8 @@ app.use((err, req, res, next) => {
 });
 
 // ─── Servidor ─────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+conectarBanco().then(() => {                  
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor rodando na porta ${PORT}`);
+  });
 });
