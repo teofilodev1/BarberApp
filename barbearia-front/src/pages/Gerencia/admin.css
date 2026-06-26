@@ -1,0 +1,36 @@
+/* ════════════════════════════════════════════════
+   admin.css — Barbearia Premium | Painel Admin
+   ════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ── Variáveis (mesma paleta da home) ───────────── */
+.admin {
+  --roxo:         #7c3aed;
+  --roxo-claro:   #a855f7;
+  --dourado:      #d4a843;
+  --dourado-dim:  rgba(212, 168, 67, 0.12);
+  --fundo:        #0e0b16;
+  --fundo-alt:    #12101c;
+  --card:         #1a1628;
+  --card-2:       #221d34;
+  --texto:        #f1eeff;
+  --texto-suave:  rgba(241, 238, 255, 0.45);
+  --texto-fraco:  rgba(241, 238, 255, 0.25);
+  --borda:        rgba(124, 58, 237, 0.18);
+  --borda-ouro:   rgba(212, 168, 67, 0.25);
+  --erro:         #f87171;
+  --erro-dim:     rgba(248, 113, 113, 0.12);
+  --fonte-titulo: 'Playfair Display', serif;
+  --fonte-corpo:  'Outfit', sans-serif;
+  --sidebar-w:    240px;
+  --raio:         12px;
+  --raio-lg:      18px;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-corpo);
+}
+

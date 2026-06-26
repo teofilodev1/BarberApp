@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import Layout from "../../components/layout";
-import { showAlert } from  "../../components/ui/alert";
+import { toast } from "react-toastify";
 import "./home.css";
+import Navbar from "../../components/Navbar/navbar";
+import Footer from "../../components/Footer/footer"
 
 // Formata texto descrição
 function capitalizar(texto) {
@@ -40,7 +41,7 @@ function HomePage() {
       setServicos(formatados);
     } catch (error) {
       console.error('Erro ao carregar serviços', error);
-      showAlert('Erro ao carregar serviços');
+      toast.error('Erro ao carregar serviços');
     }
   }
   carregarServicos();
@@ -63,7 +64,7 @@ useEffect(() => {
       setBarbeiros(formatados); 
     } catch (error) {
       console.error('Erro ao carregar barbeiros', error);
-      showAlert('Erro ao carregar barbeiros');
+      toast.error('Erro ao carregar barbeiros');
     }
   }
   carregarBarbeiros(); 
@@ -95,16 +96,15 @@ useEffect(() => {
       setHorarios(formatados);
     } catch (error) {
       console.error('Erro ao carregar horarios', error);
-      showAlert('Erro ao carregar horarios');
+      toast.error('Erro ao carregar horarios');
     }
   }
   carregarHorarios();
 }, []);
 
   return (
-    <Layout>
       <div className="home">
-
+        < Navbar />
         {/* ── HERO ── */}
         <section className="hero">
           <div className="hero-bg" aria-hidden="true">
@@ -221,9 +221,8 @@ useEffect(() => {
             </div>
           </div>
         </section>
-
+        < Footer />
       </div>
-    </Layout>
   );
 }
 
