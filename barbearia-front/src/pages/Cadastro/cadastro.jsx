@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { showAlert } from "../../components/ui/alert";
-import "./Cadastro.css";
+import "./cadastro.css";
 
 function CadastroPage() {
   const [email, setEmail] = useState("");
