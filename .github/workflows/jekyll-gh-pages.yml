@@ -28,11 +28,11 @@ jobs:
           node-version: 20
 
       - name: Install dependencies (frontend)
-        working-directory: frontend
+        working-directory: barbearia-front
         run: npm install
 
       - name: Build project (frontend)
-        working-directory: frontend
+        working-directory: barbearia-front
         run: npm run build
 
       - name: Setup Pages
