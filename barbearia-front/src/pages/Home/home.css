@@ -1,266 +1,246 @@
-/* ════════════════════════════════════════════════
-   home.css — Barbearia Premium | Roxo Escuro
-   ════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   HOME PAGE STYLES — BarberApp
+   ══════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap');
-
-/* ── Variáveis ─────────────────────────────────── */
+/* ── BASE ── */
 .home {
-  --roxo:         #7c3aed;
-  --roxo-claro:   #a855f7;
-  --dourado:      #d4a843;
-  --dourado-dim:  rgba(212, 168, 67, 0.15);
-  --fundo:        #0e0b16;
-  --fundo-alt:    #12101c;
-  --card:         #1a1628;
-  --card-2:       #221d34;
-  --texto:        #f1eeff;
-  --texto-suave:  rgba(241, 238, 255, 0.45);
-  --texto-fraco:  rgba(241, 238, 255, 0.25);
-  --borda:        rgba(124, 58, 237, 0.18);
-  --borda-ouro:   rgba(212, 168, 67, 0.3);
-  --fonte-titulo: 'Playfair Display', serif;
-  --fonte-corpo:  'Outfit', sans-serif;
-  --raio:         12px;
-  --raio-lg:      20px;
-
-  font-family: var(--fonte-corpo);
-  background: var(--fundo);
-  color: var(--texto);
-  min-height: 100vh;
+  width: 100%;
+  color: #eeedfe;
+  font-family: "DM Sans", "Poppins", sans-serif;
 }
 
-/* ── Botões ─────────────────────────────────────── */
-.btn {
-  font-family: var(--fonte-corpo);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 12px 28px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  letter-spacing: 0.3px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-}
-
-.btn-dourado {
-  background: var(--dourado);
-  color: #0e0b16;
-}
-
-.btn-dourado:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(212, 168, 67, 0.35);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--texto);
-  border: 1px solid var(--borda);
-}
-
-.btn-ghost:hover {
-  border-color: var(--roxo-claro);
-  color: var(--roxo-claro);
-}
-
-/* ── Hero ───────────────────────────────────────── */
+/* ── HERO ── */
 .hero {
   position: relative;
-  min-height: 88vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px 60px;
   overflow: hidden;
-  padding: 0 2.5rem;
 }
 
 .hero-bg {
   position: absolute;
   inset: 0;
-  pointer-events: none;
   z-index: 0;
+  pointer-events: none;
 }
 
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.22;
+  filter: blur(100px);
+  opacity: 0.25;
 }
 
 .orb-1 {
-  width: 520px;
-  height: 520px;
-  background: var(--roxo);
-  top: -100px;
-  right: -80px;
-  animation: flutuar 8s ease-in-out infinite;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #7f77dd 0%, transparent 70%);
+  top: -120px;
+  right: -100px;
+  animation: float 8s ease-in-out infinite;
 }
 
 .orb-2 {
-  width: 340px;
-  height: 340px;
-  background: var(--dourado);
-  bottom: 40px;
-  left: 10%;
-  opacity: 0.12;
-  animation: flutuar 11s ease-in-out infinite reverse;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #afa9ec 0%, transparent 70%);
+  bottom: -80px;
+  left: -60px;
+  animation: float 10s ease-in-out infinite reverse;
 }
 
 .grid-lines {
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 60px,
-    rgba(124, 58, 237, 0.04) 60px,
-    rgba(124, 58, 237, 0.04) 61px
-  );
+  background-image:
+    linear-gradient(rgba(127, 119, 221, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 119, 221, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
-@keyframes flutuar {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50%       { transform: translateY(-30px) scale(1.05); }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 640px;
-  animation: subir 0.8s ease both;
-}
-
-@keyframes subir {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
+  max-width: 700px;
+  animation: fadeUp 0.8s ease-out;
 }
 
 .eyebrow {
   display: inline-block;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 3px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--dourado);
-  border: 1px solid var(--borda-ouro);
-  border-radius: 99px;
-  padding: 5px 16px;
-  margin-bottom: 1.75rem;
+  color: #afa9ec;
+  background: rgba(175, 169, 236, 0.12);
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 24px;
 }
 
 .titulo {
-  font-family: var(--fonte-titulo);
-  font-size: clamp(2.8rem, 6vw, 5rem);
-  font-weight: 900;
-  line-height: 1.08;
-  letter-spacing: -1px;
-  color: var(--texto);
-  margin: 0 0 1.25rem;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 20px;
+  color: #eeedfe;
 }
 
 .titulo em {
   font-style: italic;
-  color: var(--dourado);
+  background: linear-gradient(135deg, #afa9ec, #7f77dd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .subtitulo {
-  font-size: 17px;
-  color: var(--texto-suave);
-  line-height: 1.7;
-  margin: 0 0 2.5rem;
-  max-width: 460px;
+  font-size: 1.1rem;
+  color: rgba(238, 237, 254, 0.6);
+  line-height: 1.6;
+  margin: 0 0 36px;
 }
 
 .hero-botoes {
   display: flex;
-  gap: 1rem;
+  gap: 14px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
-/* ── Seções ─────────────────────────────────────── */
+/* ── BOTÕES ── */
+.btn {
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+  font-family: inherit;
+}
+
+.btn-dourado {
+  background: linear-gradient(135deg, #afa9ec, #7f77dd);
+  color: #0f0c1a;
+  box-shadow: 0 4px 20px rgba(127, 119, 221, 0.35);
+}
+
+.btn-dourado:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(127, 119, 221, 0.5);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #afa9ec;
+  border: 1.5px solid rgba(175, 169, 236, 0.3);
+}
+
+.btn-ghost:hover {
+  background: rgba(175, 169, 236, 0.1);
+  border-color: #afa9ec;
+}
+
+/* ── SEÇÕES ── */
 .secao {
-  padding: 6rem 2.5rem;
+  padding: 80px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .secao-escura {
-  background: var(--fundo-alt);
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
+  margin: 0 24px;
+  max-width: calc(1200px - 48px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .secao-topo {
-  margin-bottom: 3rem;
+  text-align: center;
+  margin-bottom: 48px;
 }
 
 .tag {
-  display: block;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--roxo-claro);
-  margin-bottom: 0.6rem;
+  color: #afa9ec;
+  background: rgba(175, 169, 236, 0.1);
+  padding: 5px 16px;
+  border-radius: 16px;
+  margin-bottom: 14px;
 }
 
 .secao-titulo {
-  font-family: var(--fonte-titulo);
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 700;
-  color: var(--texto);
   margin: 0;
-  letter-spacing: -0.5px;
+  color: #eeedfe;
 }
 
-/* ── Serviços ───────────────────────────────────── */
+/* ── SERVIÇOS GRID ── */
 .servicos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
 }
 
 .servico-card {
-  background: var(--card);
-  border: 1px solid var(--borda);
-  border-radius: var(--raio-lg);
-  padding: 1.5rem 1.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(175, 169, 236, 0.1);
+  border-radius: 16px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  animation: subir 0.6s ease both;
-  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  gap: 12px;
+  transition: all 0.3s ease;
+  animation: fadeUp 0.5s ease-out both;
+  backdrop-filter: blur(8px);
 }
 
 .servico-card:hover {
-  border-color: rgba(124, 58, 237, 0.5);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(175, 169, 236, 0.25);
   transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .servico-topo {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
+  align-items: center;
 }
 
 .servico-nome {
-  font-size: 16px;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: var(--texto);
-  line-height: 1.3;
+  color: #eeedfe;
 }
 
 .servico-preco {
-  font-family: var(--fonte-titulo);
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 700;
-  color: var(--dourado);
-  white-space: nowrap;
+  color: #afa9ec;
 }
 
 .servico-desc {
-  font-size: 13px;
-  color: var(--texto-suave);
-  line-height: 1.6;
+  font-size: 0.9rem;
+  color: rgba(238, 237, 254, 0.5);
+  line-height: 1.5;
   margin: 0;
   flex: 1;
 }
@@ -269,70 +249,71 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--borda);
-  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(175, 169, 236, 0.08);
 }
 
 .servico-duracao {
-  font-size: 12px;
-  color: var(--texto-fraco);
+  font-size: 0.85rem;
+  color: rgba(238, 237, 254, 0.4);
 }
 
 .servico-btn {
-  font-family: var(--fonte-corpo);
-  font-size: 12px;
-  font-weight: 500;
-  background: var(--dourado-dim);
-  color: var(--dourado);
-  border: 1px solid var(--borda-ouro);
+  background: rgba(175, 169, 236, 0.15);
+  color: #afa9ec;
+  border: none;
+  padding: 8px 20px;
   border-radius: 6px;
-  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, transform 0.15s;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
 
 .servico-btn:hover {
-  background: rgba(212, 168, 67, 0.25);
-  transform: scale(1.04);
+  background: rgba(175, 169, 236, 0.3);
+  color: #eeedfe;
 }
 
-/* ── Barbeiros ──────────────────────────────────── */
+/* ── BARBEIROS GRID ── */
 .barbeiros-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
 }
 
 .barbeiro-card {
-  background: var(--card);
-  border: 1px solid var(--borda);
-  border-radius: var(--raio-lg);
-  padding: 2rem 1.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(175, 169, 236, 0.1);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 1rem;
-  animation: subir 0.6s ease both;
-  transition: border-color 0.2s, transform 0.2s;
+  gap: 16px;
+  transition: all 0.3s ease;
+  animation: fadeUp 0.5s ease-out both;
 }
 
 .barbeiro-card:hover {
-  border-color: rgba(168, 85, 247, 0.4);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(175, 169, 236, 0.25);
   transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .barbeiro-avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: var(--card-2);
-  border: 2px solid var(--borda);
+  background: linear-gradient(135deg, #7f77dd, #afa9ec);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .barbeiro-foto {
@@ -342,10 +323,10 @@
 }
 
 .barbeiro-iniciais {
-  font-family: var(--fonte-titulo);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--roxo-claro);
+  color: #0f0c1a;
+  text-transform: uppercase;
 }
 
 .barbeiro-info {
@@ -355,50 +336,49 @@
 }
 
 .barbeiro-nome {
-  font-size: 17px;
+  font-size: 1.15rem;
   font-weight: 600;
-  color: var(--texto);
   margin: 0;
+  color: #eeedfe;
 }
 
 .barbeiro-especialidade {
-  font-size: 13px;
-  color: var(--roxo-claro);
+  font-size: 0.9rem;
+  color: #afa9ec;
   margin: 0;
 }
 
 .barbeiro-experiencia {
-  font-size: 12px;
-  color: var(--texto-fraco);
+  font-size: 0.8rem;
+  color: rgba(238, 237, 254, 0.4);
 }
 
 .barbeiro-btn {
-  font-family: var(--fonte-corpo);
-  font-size: 13px;
-  font-weight: 500;
-  background: transparent;
-  color: var(--texto-suave);
-  border: 1px solid var(--borda);
+  background: rgba(175, 169, 236, 0.15);
+  color: #afa9ec;
+  border: none;
+  padding: 10px 24px;
   border-radius: 8px;
-  padding: 9px 20px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
   width: 100%;
-  margin-top: auto;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  font-family: inherit;
 }
 
 .barbeiro-btn:hover {
-  border-color: var(--dourado);
-  color: var(--dourado);
-  background: var(--dourado-dim);
+  background: linear-gradient(135deg, #afa9ec, #7f77dd);
+  color: #0f0c1a;
 }
 
-/* ── Horários ───────────────────────────────────── */
+/* ── HORÁRIOS ── */
 .horarios-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 3rem;
-  align-items: start;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .horarios-lista {
@@ -407,124 +387,112 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .horario-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.25rem;
-  border-radius: var(--raio);
-  border: 1px solid transparent;
-  transition: background 0.18s, border-color 0.18s;
+  padding: 14px 20px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+  font-size: 0.95rem;
 }
 
 .horario-item:hover {
-  background: var(--card);
-  border-color: var(--borda);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .horario-hoje {
-  background: var(--card-2);
-  border-color: rgba(124, 58, 237, 0.4);
+  background: rgba(175, 169, 236, 0.1);
+  border: 1px solid rgba(175, 169, 236, 0.2);
 }
 
 .horario-dia {
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--texto-suave);
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.horario-hoje .horario-dia {
-  color: var(--texto);
   font-weight: 500;
+  color: #eeedfe;
 }
 
 .horario-ponto {
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  background: #7f77dd;
+  box-shadow: 0 0 8px rgba(127, 119, 221, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 .horario-horas {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--texto-fraco);
-  font-variant-numeric: tabular-nums;
-}
-
-.horario-hoje .horario-horas {
-  color: var(--dourado);
+  color: rgba(238, 237, 254, 0.5);
+  font-weight: 400;
 }
 
 .horarios-cta {
-  background: var(--card);
-  border: 1px solid var(--borda);
-  border-radius: var(--raio-lg);
-  padding: 2.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
-  position: sticky;
-  top: 2rem;
+  text-align: center;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(175, 169, 236, 0.08);
 }
 
 .horarios-cta-texto {
-  font-family: var(--fonte-titulo);
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--texto);
-  margin: 0;
+  font-size: 1rem;
+  color: rgba(238, 237, 254, 0.6);
+  margin: 0 0 16px;
 }
 
-.horarios-cta .btn {
-  width: 100%;
+/* ── ANIMAÇÃO GLOBAL ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-/* ── Responsivo ─────────────────────────────────── */
+/* ── RESPONSIVO ── */
 @media (max-width: 768px) {
   .hero {
-    min-height: 100svh;
-    padding: 5rem 1.5rem 3rem;
-    align-items: flex-end;
+    min-height: 70vh;
+    padding: 60px 20px 40px;
+  }
+
+  .titulo {
+    font-size: 2rem;
   }
 
   .secao {
-    padding: 4rem 1.5rem;
+    padding: 60px 16px;
   }
 
-  .horarios-wrapper {
+  .secao-escura {
+    margin: 0 12px;
+    padding: 60px 16px;
+  }
+
+  .servicos-grid {
     grid-template-columns: 1fr;
   }
 
-  .horarios-cta {
-    position: static;
-  }
-
-  .servicos-grid,
   .barbeiros-grid {
     grid-template-columns: 1fr;
   }
 
   .hero-botoes {
     flex-direction: column;
-  }
-
-  .hero-botoes .btn {
-    width: 100%;
-    text-align: center;
+    align-items: center;
   }
 }
