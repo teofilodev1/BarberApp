@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
   body,
   #root {
     width:100%;
-    min-height:100vh;
     overflow-x:hidden;
   }
 
@@ -33,7 +32,8 @@ const Page = styled.div`
 
   color: #eeedfe;
   font-family: "DM Sans", sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
++ overflow-y: visible;
 `;
 
 const BgCircle = styled.div`
