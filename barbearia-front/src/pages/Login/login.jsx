@@ -30,7 +30,7 @@ function LoginPage() {
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow flex items-center justify-center">
         <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-lg w-full max-w-sm">
-          <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Login</h2>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2" htmlFor="email">Email</label>
             <input
@@ -54,7 +54,7 @@ function LoginPage() {
             />
           </div>
           <button type="submit" className="w-full bg-purple-700 text-white py-2 rounded hover:bg-purple-800 transition duration-200">Entrar</button>
-          <a href="/cadastro" className="block text-center mt-4 text-sm text-gray-600 hover:text-gray-800">Não tem uma conta? Cadastre-se</a>
+          <a href="/BarberApp/cadastro" className="block text-center mt-4 text-sm text-gray-600 hover:text-gray-800">Não tem uma conta? Cadastre-se</a>
         </form>
       </main>
     </div>

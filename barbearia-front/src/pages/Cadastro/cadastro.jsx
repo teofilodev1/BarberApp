@@ -42,7 +42,7 @@ function CadastroPage() {
           onSubmit={handleCadastro}
           className="bg-white p-6 rounded shadow-lg w-full max-w-sm"
         >
-          <h2 className="text-2xl font-bold mb-4 text-center">Cadastrar</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Cadastrar</h2>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2" htmlFor="nome">
               Nome

@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./home.css";
-import Footer from "../../components/Footer/footer"
+import Footer from "../../components/Footer/footer";
 
-// Formata texto descrição
+// Formata texto descrição (Comentado até o backend estar pronto para evitar erro de 'unused-vars')
+/*
 function capitalizar(texto) {
   if (!texto) return "";
   return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
 }
+*/
 
-// Formata texto especialidades
+// Formata texto especialidades (Comentado até o backend estar pronto)
+/*
 function formatarEspecialidades(texto) {
   return texto
     .split(",")
@@ -17,15 +20,20 @@ function formatarEspecialidades(texto) {
     .map(item => item.charAt(0).toUpperCase() + item.slice(1).toLowerCase())
     .join(", ");
 }
+*/
 
 function HomePage() {
   const hoje = new Date().toLocaleDateString("pt-BR", { weekday: "long" });
   const diaAtual = hoje.charAt(0).toUpperCase() + hoje.slice(1);
 
+  // 1. CORREÇÃO: O hook useNavigate deve ser chamado na raiz do componente!
+  const navigate = useNavigate();
+
   // ─── DADOS ESTÁTICOS PARA APRESENTAÇÃO ───
   // TODO: Quando o backend estiver rodando, descomentar os useEffect e trocar useState([...]) por useState([])
 
-  const [servicos, setServicos] = useState([
+  // 2. CORREÇÃO: Removidos os 'setServicos', 'setBarbeiros' etc., pois não estão sendo usados no momento
+  const [servicos] = useState([
     {
       id: 1,
       name: "Corte Clássico",
@@ -70,30 +78,7 @@ function HomePage() {
     },
   ]);
 
-  /*  ── FETCH SERVIÇOS (descomentar com backend) ──
-  useEffect(() => {
-    async function carregarServicos() {
-      try {
-        const response = await fetch('http://localhost:3000/api/services');
-        const data = await response.json();
-        const formatados = data.map((s) => ({
-          ...s,
-          name: capitalizar(s.name),
-          description: capitalizar(s.description),
-          price: Number(s.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
-          durationMin: `${s.durationMin} min`,
-        }));
-        setServicos(formatados);
-      } catch (error) {
-        console.error('Erro ao carregar serviços', error);
-        toast.error('Erro ao carregar serviços');
-      }
-    }
-    carregarServicos();
-  }, []);
-  */
-
-  const [barbeiros, setBarbeiros] = useState([
+  const [barbeiros] = useState([
     {
       id: 1,
       nome: "Carlos Silva",
@@ -117,28 +102,7 @@ function HomePage() {
     },
   ]);
 
-  /*  ── FETCH BARBEIROS (descomentar com backend) ──
-  useEffect(() => {
-    async function carregarBarbeiros() {
-      try {
-        const response = await fetch('http://localhost:3000/api/barbeiros');
-        const data = await response.json();
-        const formatados = data.map((b) => ({
-          ...b,
-          nome: b.nome,
-          especialidade: formatarEspecialidades(b.especialidade),
-        }));
-        setBarbeiros(formatados);
-      } catch (error) {
-        console.error('Erro ao carregar barbeiros', error);
-        toast.error('Erro ao carregar barbeiros');
-      }
-    }
-    carregarBarbeiros();
-  }, []);
-  */
-
-  const [horarios, setHorarios] = useState([
+  const [horarios] = useState([
     { dia: "Segunda-feira", diaSemana: "segunda-feira", abertura: "09:00", fechamento: "19:00" },
     { dia: "Terça-feira", diaSemana: "terça-feira", abertura: "09:00", fechamento: "19:00" },
     { dia: "Quarta-feira", diaSemana: "quarta-feira", abertura: "09:00", fechamento: "19:00" },
@@ -148,6 +112,8 @@ function HomePage() {
     { dia: "Domingo", diaSemana: "domingo", abertura: "Fechado", fechamento: "" },
   ]);
 
+  // Comentado para evitar erro de variável não usada
+  /*
   const ordem = [
     "segunda-feira",
     "terça-feira",
@@ -157,26 +123,26 @@ function HomePage() {
     "sábado",
     "domingo",
   ];
-
-  /*  ── FETCH HORÁRIOS (descomentar com backend) ──
-  useEffect(() => {
-    async function carregarHorarios() {
-      try {
-        const response = await fetch('http://localhost:3000/api/horarios');
-        const data = await response.json();
-        const formatados = data
-          .map((h) => ({ ...h, dia: capitalizar(h.diaSemana) }))
-          .sort((a, b) => ordem.indexOf(a.diaSemana) - ordem.indexOf(b.diaSemana));
-        setHorarios(formatados);
-      } catch (error) {
-        console.error('Erro ao carregar horarios', error);
-        toast.error('Erro ao carregar horarios');
-      }
-    }
-    carregarHorarios();
-  }, []);
   */
 
+  function handleAgendarServico(servico) {
+      // Aqui você pode implementar a lógica para agendar com o serviço selecionado
+    // Por enquanto, vamos apenas redirecionar para a página de login com o barbeiro selecionado
+    navigate('/login', { state: { servico: servico } });
+  }
+
+  function handleAgendarComBarbeiro(barbeiro) {
+    // Aqui você pode implementar a lógica para agendar com o barbeiro selecionado
+    // Por enquanto, vamos apenas redirecionar para a página de login com o barbeiro selecionado
+    navigate('/login', { state: { barbeiro } });
+  }
+
+  function handleAgendar(servico) {
+    // Aqui você pode implementar a lógica para agendar com o serviço selecionado
+    // Por enquanto, vamos apenas redirecionar para a página de login com o serviço selecionado
+    navigate('/login', { state: { servico } });
+  }
+  
   return (
     <div className="home">
       {/* ── HERO ── */}
@@ -195,8 +161,10 @@ function HomePage() {
           <p className="subtitulo">
             Onde estilo encontra tradição. Experimente o cuidado que você merece.
           </p>
-          <div className="hero-botoes">
-            <button className="btn btn-dourado">Agendar agora</button>
+          <div className="hero-botoes"> 
+            <button className="btn btn-dourado" onClick={() => handleAgendar(servicos[0])}>
+              Agendar agora
+            </button>
             <button className="btn btn-ghost">Ver serviços</button>
           </div>
         </div>
@@ -222,7 +190,9 @@ function HomePage() {
               <p className="servico-desc">{s.description}</p>
               <div className="servico-rodape">
                 <span className="servico-duracao">⏱ {s.durationMin}</span>
-                <button className="servico-btn">Agendar</button>
+                <button className="servico-btn" onClick={() => handleAgendarServico(s)}>
+                  Agendar
+                </button>
               </div>
             </div>
           ))}
@@ -255,7 +225,7 @@ function HomePage() {
                 <p className="barbeiro-especialidade">{b.especialidade}</p>
                 <span className="barbeiro-experiencia">{b.experiencia} de experiência</span>
               </div>
-              <button className="barbeiro-btn">
+              <button className="barbeiro-btn" onClick={() => handleAgendarComBarbeiro(b)}>
                 Agendar com {b.nome.split(" ")[0]}
               </button>
             </div>
@@ -295,7 +265,7 @@ function HomePage() {
           </div>
         </div>
       </section>
-      < Footer />
+      <Footer />
     </div>
   );
 }
