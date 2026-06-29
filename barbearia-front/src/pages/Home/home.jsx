@@ -61,13 +61,30 @@ function HomePage() {
     navigate('/login', { state: { servico: servicos[0] ?? null } });
   }
 
-  if (loading) {
-    return <div className="loading">Carregando...</div>;
-  }
+if (loading) {
+  return (
+    <div className="loading-wrap">
+      <svg className="scissors" width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <circle cx="16" cy="20" r="7" stroke="#afa9ec" strokeWidth="2.5"/>
+        <circle cx="16" cy="44" r="7" stroke="#afa9ec" strokeWidth="2.5"/>
+        <circle cx="16" cy="20" r="3" fill="#7f77dd"/>
+        <circle cx="16" cy="44" r="3" fill="#7f77dd"/>
+        <line x1="21" y1="17" x2="56" y2="6" stroke="#afa9ec" strokeWidth="2.5" strokeLinecap="round"/>
+        <line x1="21" y1="47" x2="56" y2="58" stroke="#afa9ec" strokeWidth="2.5" strokeLinecap="round"/>
+        <line x1="21" y1="21" x2="56" y2="32" stroke="#7f77dd" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="4 3"/>
+        <line x1="21" y1="43" x2="56" y2="32" stroke="#7f77dd" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="4 3"/>
+      </svg>
+      <div className="loading-text">
+        Carregando<span className="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+      </div>
+      <div className="loading-bar"><div className="loading-bar-fill" /></div>
+    </div>
+  );
+}
 
-  if (erro) {
-    return <div className="erro">{erro}</div>;
-  }
+if (erro) {
+  return <div className="erro">{erro}</div>;
+}
 
   return (
     <div className="home">
