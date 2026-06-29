@@ -31,9 +31,10 @@ jobs:
         working-directory: barbearia-front
         run: npm ci
 
-      - name: Build project
-        working-directory: barbearia-front
+      - name: Build
         run: npm run build
+        env:
+            VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
