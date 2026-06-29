@@ -1,148 +1,74 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./home.css";
 import Footer from "../../components/Footer/footer";
 
-// Formata texto descrição (Comentado até o backend estar pronto para evitar erro de 'unused-vars')
-/*
-function capitalizar(texto) {
-  if (!texto) return "";
-  return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
-}
-*/
-
-// Formata texto especialidades (Comentado até o backend estar pronto)
-/*
-function formatarEspecialidades(texto) {
-  return texto
-    .split(",")
-    .map(item => item.trim())
-    .map(item => item.charAt(0).toUpperCase() + item.slice(1).toLowerCase())
-    .join(", ");
-}
-*/
+const API_URL = import.meta.env.VITE_API_URL;
 
 function HomePage() {
   const hoje = new Date().toLocaleDateString("pt-BR", { weekday: "long" });
   const diaAtual = hoje.charAt(0).toUpperCase() + hoje.slice(1);
-
-  // 1. CORREÇÃO: O hook useNavigate deve ser chamado na raiz do componente!
   const navigate = useNavigate();
 
-  // ─── DADOS ESTÁTICOS PARA APRESENTAÇÃO ───
-  // TODO: Quando o backend estiver rodando, descomentar os useEffect e trocar useState([...]) por useState([])
+  const [servicos, setServicos] = useState([]);
+  const [barbeiros, setBarbeiros] = useState([]);
+  const [horarios, setHorarios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(null);
 
-  // 2. CORREÇÃO: Removidos os 'setServicos', 'setBarbeiros' etc., pois não estão sendo usados no momento
-  const [servicos] = useState([
-    {
-      id: 1,
-      name: "Corte Clássico",
-      description: "Corte tradicional com acabamento perfeito e toalha quente",
-      price: "R$ 45,00",
-      durationMin: "30 min",
-    },
-    {
-      id: 2,
-      name: "Barba Completa",
-      description: "Modelagem e aparação com navalha e toalha quente",
-      price: "R$ 35,00",
-      durationMin: "25 min",
-    },
-    {
-      id: 3,
-      name: "Corte + Barba",
-      description: "Combo completo com corte e barba na navalha",
-      price: "R$ 70,00",
-      durationMin: "50 min",
-    },
-    {
-      id: 4,
-      name: "Degradê",
-      description: "Degradê moderno com técnica de pente e máquina",
-      price: "R$ 55,00",
-      durationMin: "40 min",
-    },
-    {
-      id: 5,
-      name: "Pigmentação",
-      description: "Pigmentação capilar para cobertura de falhas",
-      price: "R$ 80,00",
-      durationMin: "45 min",
-    },
-    {
-      id: 6,
-      name: "Hidratação",
-      description: "Tratamento capilar com hidratação profunda",
-      price: "R$ 40,00",
-      durationMin: "30 min",
-    },
-  ]);
+  useEffect(() => {
+    async function carregarDados() {
+      try {
+        const [resServicos, resBarbeiros, resHorarios] = await Promise.all([
+          fetch(`${API_URL}/services`),
+          fetch(`${API_URL}/barbeiros`),
+          fetch(`${API_URL}/horarios`),
+        ]);
 
-  const [barbeiros] = useState([
-    {
-      id: 1,
-      nome: "Carlos Silva",
-      especialidade: "Degradê, Corte clássico",
-      experiencia: "8 anos",
-      foto: null,
-    },
-    {
-      id: 2,
-      nome: "Rafael Oliveira",
-      especialidade: "Barba, Pigmentação",
-      experiencia: "5 anos",
-      foto: null,
-    },
-    {
-      id: 3,
-      nome: "Lucas Mendes",
-      especialidade: "Corte moderno, Hidratação",
-      experiencia: "3 anos",
-      foto: null,
-    },
-  ]);
+        if (!resServicos.ok || !resBarbeiros.ok || !resHorarios.ok) {
+          throw new Error("Erro ao buscar dados do servidor.");
+        }
 
-  const [horarios] = useState([
-    { dia: "Segunda-feira", diaSemana: "segunda-feira", abertura: "09:00", fechamento: "19:00" },
-    { dia: "Terça-feira", diaSemana: "terça-feira", abertura: "09:00", fechamento: "19:00" },
-    { dia: "Quarta-feira", diaSemana: "quarta-feira", abertura: "09:00", fechamento: "19:00" },
-    { dia: "Quinta-feira", diaSemana: "quinta-feira", abertura: "09:00", fechamento: "19:00" },
-    { dia: "Sexta-feira", diaSemana: "sexta-feira", abertura: "09:00", fechamento: "20:00" },
-    { dia: "Sábado", diaSemana: "sábado", abertura: "08:00", fechamento: "17:00" },
-    { dia: "Domingo", diaSemana: "domingo", abertura: "Fechado", fechamento: "" },
-  ]);
+        const [dataServicos, dataBarbeiros, dataHorarios] = await Promise.all([
+          resServicos.json(),
+          resBarbeiros.json(),
+          resHorarios.json(),
+        ]);
 
-  // Comentado para evitar erro de variável não usada
-  /*
-  const ordem = [
-    "segunda-feira",
-    "terça-feira",
-    "quarta-feira",
-    "quinta-feira",
-    "sexta-feira",
-    "sábado",
-    "domingo",
-  ];
-  */
+        setServicos(dataServicos);
+        setBarbeiros(dataBarbeiros);
+        setHorarios(dataHorarios);
+      } catch (err) {
+        console.error(err);
+        setErro("Não foi possível carregar os dados. Tente novamente mais tarde.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    carregarDados();
+  }, []);
 
   function handleAgendarServico(servico) {
-      // Aqui você pode implementar a lógica para agendar com o serviço selecionado
-    // Por enquanto, vamos apenas redirecionar para a página de login com o barbeiro selecionado
-    navigate('/login', { state: { servico: servico } });
+    navigate('/login', { state: { servico } });
   }
 
   function handleAgendarComBarbeiro(barbeiro) {
-    // Aqui você pode implementar a lógica para agendar com o barbeiro selecionado
-    // Por enquanto, vamos apenas redirecionar para a página de login com o barbeiro selecionado
     navigate('/login', { state: { barbeiro } });
   }
 
-  function handleAgendar(servico) {
-    // Aqui você pode implementar a lógica para agendar com o serviço selecionado
-    // Por enquanto, vamos apenas redirecionar para a página de login com o serviço selecionado
-    navigate('/login', { state: { servico } });
+  function handleAgendar() {
+    navigate('/login', { state: { servico: servicos[0] ?? null } });
   }
-  
+
+  if (loading) {
+    return <div className="loading">Carregando...</div>;
+  }
+
+  if (erro) {
+    return <div className="erro">{erro}</div>;
+  }
+
   return (
     <div className="home">
       {/* ── HERO ── */}
@@ -161,8 +87,8 @@ function HomePage() {
           <p className="subtitulo">
             Onde estilo encontra tradição. Experimente o cuidado que você merece.
           </p>
-          <div className="hero-botoes"> 
-            <button className="btn btn-dourado" onClick={() => handleAgendar(servicos[0])}>
+          <div className="hero-botoes">
+            <button className="btn btn-dourado" onClick={handleAgendar}>
               Agendar agora
             </button>
             <button className="btn btn-ghost">Ver serviços</button>
@@ -177,25 +103,29 @@ function HomePage() {
           <h2 className="secao-titulo">Serviços</h2>
         </div>
         <div className="servicos-grid">
-          {servicos.map((s, i) => (
-            <div
-              className="servico-card"
-              key={s.id}
-              style={{ animationDelay: `${i * 0.08}s` }}
-            >
-              <div className="servico-topo">
-                <span className="servico-nome">{s.name}</span>
-                <span className="servico-preco">{s.price}</span>
+          {servicos.length === 0 ? (
+            <p>Nenhum serviço disponível no momento.</p>
+          ) : (
+            servicos.map((s, i) => (
+              <div
+                className="servico-card"
+                key={s.id}
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                <div className="servico-topo">
+                  <span className="servico-nome">{s.name}</span>
+                  <span className="servico-preco">{s.price}</span>
+                </div>
+                <p className="servico-desc">{s.description}</p>
+                <div className="servico-rodape">
+                  <span className="servico-duracao">⏱ {s.durationMin}</span>
+                  <button className="servico-btn" onClick={() => handleAgendarServico(s)}>
+                    Agendar
+                  </button>
+                </div>
               </div>
-              <p className="servico-desc">{s.description}</p>
-              <div className="servico-rodape">
-                <span className="servico-duracao">⏱ {s.durationMin}</span>
-                <button className="servico-btn" onClick={() => handleAgendarServico(s)}>
-                  Agendar
-                </button>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </section>
 
@@ -206,30 +136,34 @@ function HomePage() {
           <h2 className="secao-titulo">Barbeiros</h2>
         </div>
         <div className="barbeiros-grid">
-          {barbeiros.map((b, i) => (
-            <div
-              className="barbeiro-card"
-              key={b.id}
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className="barbeiro-avatar">
-                {b.foto
-                  ? <img src={b.foto} alt={b.nome} className="barbeiro-foto" />
-                  : <span className="barbeiro-iniciais">
-                    {b.nome.split(" ").map(n => n[0]).join("").slice(0, 2)}
-                  </span>
-                }
+          {barbeiros.length === 0 ? (
+            <p>Nenhum barbeiro disponível no momento.</p>
+          ) : (
+            barbeiros.map((b, i) => (
+              <div
+                className="barbeiro-card"
+                key={b.id}
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <div className="barbeiro-avatar">
+                  {b.foto
+                    ? <img src={b.foto} alt={b.nome} className="barbeiro-foto" />
+                    : <span className="barbeiro-iniciais">
+                        {b.nome.split(" ").map(n => n[0]).join("").slice(0, 2)}
+                      </span>
+                  }
+                </div>
+                <div className="barbeiro-info">
+                  <h3 className="barbeiro-nome">{b.nome}</h3>
+                  <p className="barbeiro-especialidade">{b.especialidade}</p>
+                  <span className="barbeiro-experiencia">{b.experiencia} de experiência</span>
+                </div>
+                <button className="barbeiro-btn" onClick={() => handleAgendarComBarbeiro(b)}>
+                  Agendar com {b.nome.split(" ")[0]}
+                </button>
               </div>
-              <div className="barbeiro-info">
-                <h3 className="barbeiro-nome">{b.nome}</h3>
-                <p className="barbeiro-especialidade">{b.especialidade}</p>
-                <span className="barbeiro-experiencia">{b.experiencia} de experiência</span>
-              </div>
-              <button className="barbeiro-btn" onClick={() => handleAgendarComBarbeiro(b)}>
-                Agendar com {b.nome.split(" ")[0]}
-              </button>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </section>
 
@@ -261,10 +195,13 @@ function HomePage() {
           </ul>
           <div className="horarios-cta">
             <p className="horarios-cta-texto">Pronto para um novo visual?</p>
-            <button className="btn btn-dourado">Agendar horário</button>
+            <button className="btn btn-dourado" onClick={handleAgendar}>
+              Agendar horário
+            </button>
           </div>
         </div>
       </section>
+
       <Footer />
     </div>
   );
