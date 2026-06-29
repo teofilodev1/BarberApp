@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { showAlert } from '../../components/ui/alert'
-import './login.css';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
